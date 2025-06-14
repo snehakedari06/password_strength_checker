@@ -36,10 +36,38 @@ def check_password_strength(password):
 
     return strength, feedback
 
-st.title("Password Strength Checker")
+# Set page config
+st.set_page_config(page_title="Password Strength Checker", page_icon="🔒")
 
-password = st.text_input("Enter your password:")
+# Title and instructions
+st.title("🔒 Password Strength Checker")
+st.markdown("""
+### Instructions:
+- Enter a password in the input field below.
+- Click the "Check Strength" button.
+- The app will evaluate your password's strength and provide suggestions to improve it.
+""")
+
+password = st.text_input("Enter your password:", type="password")
 if st.button("Check Strength"):
-    strength, feedback = check_password_strength(password)
-    st.write(f"Strength: {strength}/4")
-    st.write("\n".join(feedback))
+    if not password:
+        st.error("Please enter a password to check!")
+    else:
+        strength, feedback = check_password_strength(password)
+        st.write(f"### Strength: {strength}/4")
+
+        # Display progress bar
+        st.progress(strength / 4)
+
+        if feedback:
+            st.markdown("### Suggestions to Improve:")
+            for tip in feedback:
+                st.write(f"- ⚠️ {tip}")
+        else:
+            st.success("🎉 Your password is strong!")
+
+# Sidebar with examples
+st.sidebar.markdown("### Try These Examples:")
+st.sidebar.button("Example 1: `Pass123!`")
+st.sidebar.button("Example 2: `weakpassword`")
+st.sidebar.button("Example 3: `Strong!Pass2023`")
