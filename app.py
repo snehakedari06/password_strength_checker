@@ -2,8 +2,6 @@ import streamlit as st
 import re
 from nltk.corpus import words
 import nltk
-
-# Download NLTK word corpus
 nltk.download('words')
 word_list = set(words.words())
 
@@ -36,10 +34,8 @@ def check_password_strength(password):
 
     return strength, feedback
 
-# Set page config
-st.set_page_config(page_title="Password Strength Checker", page_icon="🔒")
 
-# Title and instructions
+st.set_page_config(page_title="Password Strength Checker", page_icon="🔒")
 st.title("🔒 Password Strength Checker")
 st.markdown("""
 ### Instructions:
@@ -56,7 +52,7 @@ if st.button("Check Strength"):
         strength, feedback = check_password_strength(password)
         st.write(f"### Strength: {strength}/4")
 
-        # Display progress bar
+        
         st.progress(strength / 4)
 
         if feedback:
@@ -65,8 +61,6 @@ if st.button("Check Strength"):
                 st.write(f"- ⚠️ {tip}")
         else:
             st.success("🎉 Your password is strong!")
-
-# Sidebar with examples
 st.sidebar.markdown("### Try These Examples:")
 st.sidebar.button("Example 1: `Pass123!`")
 st.sidebar.button("Example 2: `weakpassword`")
